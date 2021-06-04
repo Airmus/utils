@@ -24,6 +24,7 @@ const FLOAT_REGEXP = /-?\d+(\.\d+)?/g
 
 type ParserResult<T> = T extends ('NUMBER_FLOAT' | 'NUMBER_INT') ? number : string
 
+/** 解析字符串中的数字 */
 export const numberParse = <T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T> | undefined => {
   const { digits, format = 'STRING_FLOAT', customRegexp } = options ?? {}
   const isFloat = format === 'NUMBER_FLOAT' || format === 'STRING_FLOAT'
@@ -51,6 +52,7 @@ export const numberParse = <T = 'STRING_FLOAT'>(str: string, options?: Options<T
   }
 }
 
+/** 匹配字符串中的数字 */
 export const numberMatch = <T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T>[] => {
   const { digits, format = 'STRING_FLOAT', customRegexp } = options ?? {}
   const isFloat = format === 'NUMBER_FLOAT' || format === 'STRING_FLOAT'

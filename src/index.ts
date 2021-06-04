@@ -1,1 +1,2 @@
-export { default as numberParse } from './numberParse'
+export { numberParse, numberMatch } from './numberParse'
+export { default as scrollToView } from './scrollToView'
