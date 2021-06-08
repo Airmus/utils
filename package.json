@@ -1,6 +1,6 @@
 {
   "name": "@airmus/utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,11 +30,11 @@
   "author": "Fog3211",
   "module": "dist/mylib.esm.js",
   "size-limit": [{
-      "path": "dist/mylib.cjs.production.min.js",
+      "path": "dist/utils.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/mylib.esm.js",
+      "path": "dist/utils.esm.js",
       "limit": "10 KB"
     }
   ],
@@ -47,6 +47,6 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@umijs/fabric": "2.5.13"
+    "@umijs/fabric": "2.6.2"
   }
 }
