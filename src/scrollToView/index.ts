@@ -14,7 +14,7 @@ const scrollToView = (options: Options) => {
   let elmSelector = selector
   if (!elmSelector) {
     // 如果未指定选择器，就从路由里面读取锚点
-    const matchs = window.location.hash.match(/(#\w+)/g)
+    const matchs = window.location.hash.match(/(#\S+)/g)
     if (matchs) {
       elmSelector = matchs[matchs.length - 1]
     }

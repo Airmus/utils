@@ -1,103 +1,127 @@
-# TSDX User Guide
+# 使用文档
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+`@airmus/utils` 是一个集合了多个常用方法的工具库。
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
-
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
-
-## Commands
-
-TSDX scaffolds your new library inside `/src`.
-
-To run TSDX, use:
+## 安装
 
 ```bash
-npm start # or yarn start
+npm install @airmus/utils 
+# 或
+yarn add @airmus/utils
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## 使用
 
-To do a one-off build, use `npm run build` or `yarn build`.
+```tsx
+import { scrollToView } from '@airmus/utils'
+import { useEffect } from 'react'
 
-To run tests, use `npm test` or `yarn test`.
+const App = () => {
+  useEffect(() => {
+    scrollToView({
+      behavior: 'smooth',
+      selector: '#footer'
+    })
+  }, [])
 
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+  return (
+    <div>
+      <header id='nav'></header>
+      <section>
+        Here is a containter
+      </section>
+      <footer id='footer'>
+      </footer>
+    </div>
+  )
 }
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+## API
 
-## Module Formats
+### numberParse
 
-CJS, ESModules, and UMD module formats are supported.
+解析字符串中的数字
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+``` tsx
+/** 字符串整数、字符串浮点数、数字整数、数字浮点数 */
+type IFormat =
+  | 'STRING_INT'
+  | 'STRING_FLOAT'
+  | 'NUMBER_INT'
+  | 'NUMBER_FLOAT'
 
-## Named Exports
+type Options<T> = {
+  /** 保留小数点精度 */
+  digits?: number
+  /** 数据返回的形式 */
+  format?: T | IFormat
+  /** 自定义匹配规则 */
+  customRegexp?: RegExp
+}
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+/** 提取数字 */
 
-## Including Styles
+numberParse('asdfg123.44*66..', { digits: 2, format: 'STRING_INT' })
+// 格式化成字符串整数，并保留两位小数 '123.00'
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+numberParse('asdfg123.44*66..', { format: 'NUMBER_FLOAT' })
+// 格式化成数字浮点数 '123.44'
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+numberParse('-2.ppd-123.44*66..', { format: 'NUMBER_INT' })
+// -2
 
-## Publishing to NPM
+/** 多个匹配 */
 
-We recommend using [np](https://github.com/sindresorhus/np).
+numberMatch('-2.ppd-123.44*66..', { format: 'NUMBER_INT' })
+// [-2, -123, 44, 66]
+
+numberMatch('-1.2.ppd-123.44*66..', { format: 'NUMBER_INT' })
+// [-1, 2, -123, 44, 66]
+
+numberMatch('-1.2.ppd-123.44*66..', { format: 'STRING_FLOAT' })
+// ["-1.2", "-123.44", "66"]
+
+numberMatch('-1.2.ppd-123.44*66..', { format: 'STRING_FLOAT', customRegexp: /[1-5]+/g })
+// 自定义正则匹配 ["-1.2", "-123.44", "66"]
+
+```
+
+### scrollToView
+
+dom元素滚动到可视区域
+
+``` tsx
+type ScrollToOptions = {
+  /** 与左侧视口的距离 */
+  left?: number
+  /** 与顶部视口的距离 */
+  top?: number
+  /** 立即滚动 or 平滑滚动 */
+  behavior: "auto" | "smooth"
+}
+type Options = ScrollToOptions & {
+  /** 横向滚动位置偏移量，正数偏右，负数偏左 */
+  offsetX?: number
+  /** 纵向滚动位置偏移量，正数偏上，负数偏下 */
+  offsetY?: number
+  /** css选择器，用于指定滚动的dom */
+  selector?: string
+}
+
+// id为app的dom滚动到视口区域，并向下偏移100像素
+scrollToView({
+  selector: '#app'
+  offsetY: 100
+})
+
+// 不指定selector，直接给出绝对位置
+scrollToView({
+  top: 200,
+  left: 400
+})
+
+// 不指定selector，也没有传入具体位置，则会根据路由里面的锚点进行定位（如果有）
+// https://test.example.com/demo#abcd
+scrollToView() // 会锚点定位到’#abcd‘
+```
