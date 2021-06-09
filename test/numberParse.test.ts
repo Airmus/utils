@@ -67,3 +67,35 @@ describe('numberMatch: format to number float and has rounding digits', () => {
     })).toEqual([11, 2233.522, -90.798, -33])
   })
 })
+
+describe('numberMatch: only match float which less than zero', () => {
+  it('works', () => {
+    expect(numberMatch('-11,-02233.522888ss80wqjeio-90.79809-33', {
+      format: 'NUMBER_FLOAT',
+      customRegexp: /-\d+(\.\d+)/g
+    })).toEqual([-2233.522888, -90.79809])
+  })
+})
+
+describe('1numberMatch: only match float which less than zero', () => {
+  it('works', () => {
+    expect(numberMatch('-11,-02233.522888ss80wqjeio-90', {
+      format: 'STRING_INT',
+    })).toEqual(['-11', '-02233', '522888', '80', '-90'])
+  })
+})
+
+
+describe('numberMatch: no input params', () => {
+  it('works', () => {
+    expect(numberMatch('-11,-02233.522888ss80wqjeio-90.79809-33'))
+      .toEqual(['-11', '-02233.522888', '80', '-90.79809', '-33'])
+  })
+})
+
+describe('numberMatch: no matchs', () => {
+  it('works', () => {
+    expect(numberMatch(')'))
+      .toEqual([])
+  })
+})

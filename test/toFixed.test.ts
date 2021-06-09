@@ -29,3 +29,9 @@ describe('toFixed: illegal input', () => {
     expect(toFixed({} as any)).toBe('[object Object]')
   })
 })
+
+describe('toFixed: digits equal zero', () => {
+  it('works', () => {
+    expect(toFixed(123, { digits: 0 })).toBe('123')
+  })
+})
