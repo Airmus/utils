@@ -1,3 +1,5 @@
+import toFixed from '../toFixed'
+
 /** 字符串整数、字符串浮点数、数字整数、数字浮点数 */
 export type IFormat =
   | 'STRING_INT'
@@ -39,16 +41,9 @@ export const numberParse = <T = 'STRING_FLOAT'>(str: string, options?: Options<T
   if (match === undefined) {
     return undefined
   } else {
-    if (digits === undefined) {
-      // 保留全部小数位
-      return (
-        isNumber ? Number(match) : match
-      ) as ParserResult<T>
-    } else {
-      return (
-        isNumber ? Number(Number(match).toFixed(digits)) : Number(match).toFixed(digits)
-      ) as ParserResult<T>
-    }
+    return (
+      isNumber ? Number(toFixed(match, { digits })) : toFixed(match, { digits })
+    ) as ParserResult<T>
   }
 }
 
@@ -64,14 +59,7 @@ export const numberMatch = <T = 'STRING_FLOAT'>(str: string, options?: Options<T
     matchRegexp = FLOAT_REGEXP
   }
   const matchs: string[] = str.match(matchRegexp) ?? []
-  if (digits === undefined) {
-    // 保留全部小数位
-    return (
-      isNumber ? matchs.map(item => Number(item)) : matchs
-    ) as ParserResult<T>[]
-  } else {
-    return (
-      isNumber ? matchs.map(item => Number(Number(item).toFixed(digits))) : matchs.map(item => Number(item).toFixed(digits))
-    ) as ParserResult<T>[]
-  }
+  return (
+    isNumber ? matchs.map(item => Number(toFixed(item, { digits }))) : matchs.map(item => toFixed(item, { digits }))
+  ) as ParserResult<T>[]
 }
