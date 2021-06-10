@@ -19,7 +19,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "release": "yarn run build && npm publish --access public"
+    "release": "yarn run build && npm publish"
   },
   "peerDependencies": {},
   "husky": {
@@ -48,5 +48,12 @@
   },
   "dependencies": {
     "@umijs/fabric": "2.6.2"
+  },
+  "bugs": {
+    "url": "https://github.com/airmus/utils/issues"
+  },
+  "homepage": "https://github.com/airmus/utils#readme",
+  "publishConfig": {
+    "access": "public"
   }
 }

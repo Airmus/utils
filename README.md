@@ -125,3 +125,25 @@ scrollToView({
 // https://test.example.com/demo#abcd
 scrollToView() // 会锚点定位到’#abcd‘
 ```
+
+### toFixed
+
+控制小数精度（支持四舍五入可控）
+
+``` tsx
+type Options = {
+  /** 是否四舍五入 */
+  rounding?: boolean
+  /** 保留多少位小数  */
+  digits?: number
+}
+
+toFixed('123', { digits: 2 })
+// 保留两位小数 '123.00'
+
+toFixed(-3.124)
+//  '-123.124'
+
+toFixed(-3.1247, { rounding: true, digits: 3 })
+// 四舍五入 '-123.125'
+```
