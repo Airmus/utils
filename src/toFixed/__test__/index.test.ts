@@ -1,37 +1,29 @@
-import { toFixed } from '../src';
+import toFixed from '..';
 
 /** toFixed */
 
-describe('toFixed: with digits', () => {
-  it('works', () => {
+describe('toFixed', () => {
+  it('with digits', () => {
     expect(toFixed('123', {
       digits: 7
     })).toBe('123.0000000')
   })
-})
 
-describe('toFixed: without digits', () => {
-  it('works', () => {
+  it('without digits', () => {
     expect(toFixed(-123.9876)).toBe('-123.9876')
   })
-})
 
-describe('toFixed: with rounding', () => {
-  it('works', () => {
+  it('with rounding', () => {
     expect(toFixed(-123.9876, { rounding: true, digits: 3 })).toBe('-123.988')
   })
-})
 
-describe('toFixed: illegal input', () => {
-  it('works', () => {
+  it('illegal input', () => {
     expect(toFixed(null as any)).toBe('null')
     expect(toFixed(undefined as any, { rounding: true, digits: 3 })).toBe('undefined')
     expect(toFixed({} as any)).toBe('[object Object]')
   })
-})
 
-describe('toFixed: digits equal zero', () => {
-  it('works', () => {
+  it('digits equal zero', () => {
     expect(toFixed(123, { digits: 0 })).toBe('123')
   })
 })
