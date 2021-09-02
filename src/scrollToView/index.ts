@@ -1,3 +1,8 @@
+/*
+ * @Date: 2021-06-07 09:52:28
+ * @LastEditTime: 2021-09-02 23:30:57
+ * @Description: 滚动到可视区域
+ */
 
 export type Options = ScrollToOptions & {
   /** 横向滚动位置偏移量，正数偏右，负数偏左 */

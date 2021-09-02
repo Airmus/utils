@@ -1,3 +1,8 @@
+/*
+ * @Date: 2021-06-09 19:16:34
+ * @LastEditTime: 2021-09-02 23:31:43
+ * @Description: 字符串提取数字
+ */
 import toFixed from '../toFixed'
 
 /** 字符串整数、字符串浮点数、数字整数、数字浮点数 */
