@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-06-09 18:41:31
+ * @LastEditTime: 2021-09-02 23:31:12
+ * @Description: 处理数字精度
+ */
+
 export type Options = {
   /** 是否四舍五入 */
   rounding?: boolean

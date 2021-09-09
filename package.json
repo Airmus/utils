@@ -1,6 +1,6 @@
 {
   "name": "@airmus/utils",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -27,8 +27,7 @@
   },
   "author": "Fog3211",
   "module": "dist/mylib.esm.js",
-  "size-limit": [
-    {
+  "size-limit": [{
       "path": "dist/utils.cjs.production.min.js",
       "limit": "10 KB"
     },
@@ -38,13 +37,16 @@
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.12.0",
-    "@umijs/fabric": "^2.6.2",
-    "husky": "^6.0.0",
-    "size-limit": "^4.12.0",
+    "@size-limit/preset-small-lib": "^5.0.3",
+    "@umijs/fabric": "^2.7.0",
+    "husky": "^7.0.2",
+    "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.3.2"
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "@airmus/logger": "^0.0.0"
   },
   "bugs": {
     "url": "https://github.com/airmus/utils/issues"
