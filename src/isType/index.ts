@@ -5,30 +5,24 @@ export type IType =
   | 'undefined'
   | 'symbol'
   | 'bigint'
-  | 'object'
   | 'array'
   | 'function'
   | 'regexp'
   | 'promise'
   | 'date'
   | 'dom'
-  | 'class'
   | 'null'
+  | 'object'
 
 const getType = (value: any): IType => {
-  if (
-    typeof value === 'number' ||
-    typeof value === 'string' ||
-    typeof value === 'boolean' ||
-    typeof value === 'undefined' ||
-    typeof value === 'symbol' ||
-    typeof value === 'bigint'
-  ) {
-    return typeof value
-  } else if (Array.isArray(value)) {
-    return 'array'
-  } else if (value === null) {
-    return 'null'
+  if (value instanceof Element) {
+    return 'dom'
+  }
+  const tempType = Object.prototype.toString.call(value)
+  // '[object String]'  从字符串截取出对应的类型
+  const maybeType = tempType.slice(8, tempType.length - 1).toLowerCase()
+  if (['number', 'string', 'boolean', 'undefined', 'symbol', 'bigint', 'array', 'function', 'regexp', 'promise', 'date', 'null'].includes(maybeType)) {
+    return maybeType as IType
   } else {
     return 'object'
   }
@@ -36,7 +30,7 @@ const getType = (value: any): IType => {
 
 const isType = (value: any, ...rest: IType[]) => {
   if (rest.length === 0) {
-    return getType(value) === 'undefined'
+    return value === undefined
   } else {
     return rest.some(type => getType(value) === type)
   }
