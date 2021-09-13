@@ -1,26 +1,27 @@
 /*
  * @Date: 2021-09-09 22:55:02
- * @LastEditTime: 2021-09-09 23:11:44
+ * @LastEditTime: 2021-09-13 22:09:39
  * @Description: 通过路径取出 对象/数组 的value
  */
 
 export type IPath = string | (number | string)[]
 
-const deepGet = <T = any>(target: object, path: IPath, defaultValue?: T): T => {
+const deepGet = (target: object, path: IPath, defaultValue?: any) => {
   let pathArr: (string | number)[] = []
-  let value: T = undefined
+  let value
   if (typeof path === 'string') {
     pathArr = path.split('.')
   } else if (Array.isArray(path)) {
     pathArr = Array.from(path)
   }
-  if (path.length === 0) {
-    return value
-  } else {
-    const [first, ...rest] = pathArr
-    return deepGet(target[first], rest)
+  value = target
+  while (value && pathArr.length) {
+    const key = pathArr.shift()
+    if (key) {
+      value = (value as any)[key]
+    }
   }
-  return value
+  return value === undefined ? defaultValue : value
 }
 
 export default deepGet
