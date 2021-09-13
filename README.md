@@ -62,11 +62,11 @@ type Options<T> = {
 
 /** 提取数字 */
 
-numberParse('asdfg123.44*66..', { digits: 2, format: 'STRING_INT' })
 // 格式化成字符串整数，并保留两位小数 '123.00'
+numberParse('asdfg123.44*66..', { digits: 2, format: 'STRING_INT' })
 
-numberParse('asdfg123.44*66..', { format: 'NUMBER_FLOAT' })
 // 格式化成数字浮点数 '123.44'
+numberParse('asdfg123.44*66..', { format: 'NUMBER_FLOAT' })
 
 numberParse('-2.ppd-123.44*66..', { format: 'NUMBER_INT' })
 // -2
@@ -138,12 +138,45 @@ type Options = {
   digits?: number
 }
 
-toFixed('123', { digits: 2 })
 // 保留两位小数 '123.00'
+toFixed('123', { digits: 2 })
 
-toFixed(-3.124)
 //  '-123.124'
+toFixed(-3.124)
 
-toFixed(-3.1247, { rounding: true, digits: 3 })
 // 四舍五入 '-123.125'
+toFixed(-3.1247, { rounding: true, digits: 3 })
+```
+
+### isType
+
+数据类型检测
+
+``` tsx
+type IType =
+  | 'number' 
+  | 'string'
+  | 'boolean'
+  | 'undefined'
+  | 'symbol'
+  | 'bigint'
+  | 'array'
+  | 'function'
+  | 'regexp'
+  | 'promise'
+  | 'date'
+  | 'dom'
+  | 'null'
+  | 'object'
+
+// 第一个参数为目标值，后面可选多个可能的类型
+isType(value [, type1, ..., typen])
+
+isType('value','string') // true
+
+isType(NaN,'object') // false
+
+// 多个可选类型 (任一满足即可)
+isType(/^a(\w+)z$/),'object','string','date') // false
+isType(/^a(\w+)z$/),'array','regexp') // true
 ```
