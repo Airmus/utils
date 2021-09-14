@@ -180,3 +180,23 @@ isType(NaN,'object') // false
 isType(/^a(\w+)z$/),'object','string','date') // false
 isType(/^a(\w+)z$/),'array','regexp') // true
 ```
+
+### deepGet
+
+根据路径获取嵌套数据
+
+``` tsx
+type IPath = string | (number | string)[]
+
+deepGet(target: object, path: IPath, defaultValue?: any)
+
+// 字符串路径
+deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, 'a.b.c')  // s2
+
+// 数组路径
+deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b.c']) // s1
+deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b', 'c']) // s2
+
+// 默认值
+deepGet([{ a: [{ b: 1 }] }], '0.a.0.b.c', 'error') // error
+```
