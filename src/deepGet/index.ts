@@ -1,6 +1,6 @@
 /*
  * @Date: 2021-09-09 22:55:02
- * @LastEditTime: 2021-09-14 12:49:11
+ * @LastEditTime: 2021-09-14 23:42:38
  * @Description: 通过路径取出 对象/数组 的value
  */
 
@@ -15,6 +15,8 @@ const deepGet = (target: object, path: IPath, defaultValue?: any) => {
     pathArr = path.split('.')
   } else if (Array.isArray(path)) {
     pathArr = Array.from(path)
+  } else {
+    return defaultValue
   }
   value = target
   while (isType(value, 'object', 'array') && pathArr.length) {
