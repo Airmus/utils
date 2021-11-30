@@ -1,7 +1,7 @@
 import { Logger } from '@airmus/logger'
 
 export const logger = new Logger({
-  logLevel: 'INFO',
+  logLevel: process.env.node_env === 'development' ? 'INFO' : 'WARN',
   logPrefix: '@airmus/utils'
 })
 
