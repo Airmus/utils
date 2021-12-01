@@ -1,6 +1,6 @@
 {
   "name": "@airmus/utils",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -48,7 +48,7 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "@airmus/logger": "^0.0.2"
+    "@airmus/logger": "^0.2.0"
   },
   "bugs": {
     "url": "https://github.com/airmus/utils/issues"
