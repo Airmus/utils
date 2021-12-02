@@ -1,6 +1,6 @@
 {
   "name": "@airmus/utils",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -38,14 +38,15 @@
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^5.0.3",
     "@types/jest": "^29.4.0",
-    "@umijs/fabric": "^2.7.0",
-    "husky": "^7.0.2",
-    "size-limit": "^5.0.3",
+    "@size-limit/preset-small-lib": "^7.0.3",
+    "@types/node": "^16.11.11",
+    "@umijs/fabric": "^2.8.1",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "@airmus/logger": "^0.2.0"
@@ -56,5 +57,6 @@
   "homepage": "https://github.com/airmus/utils#readme",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "packageManager": "yarn@3.2.0-rc.6"
 }
