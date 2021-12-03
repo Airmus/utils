@@ -5,15 +5,25 @@ type IMode = 'local' | 'session'
 
 type StorageMethod = {
   get: <T>(key: string) => T | undefined
-  set: <T>(key: string, value: T, expires?: string | number) => void
-  remove: (name: string | string[]) => void
+  set: <T>(key: string, value: T, expires?: string | number) => CommonStorage
+  remove: (key: string | string[]) => CommonStorage
+  has: (key: string) => boolean
+  clear: () => CommonStorage
 }
 
 class CommonStorage {
+  private prefix: string = ''
   private storage: Storage = localStorage
 
-  public constructor(mode: IMode) {
+  public constructor(mode: IMode, options: { prefix?: string }) {
     this.storage = window[`${mode}Storage`]
+    this.prefix = options.prefix || ''
+  }
+
+  // 计算完整的key
+  private composeKey = (key: string) => {
+    if (!key) throw new Error('')
+    return this.prefix ? `${this.prefix}-${key}` : key
   }
 
   public get<T>(key: string) {
@@ -36,18 +46,18 @@ class CommonStorage {
     return this.storage
   }
 
-  public remove(name: string) {
-    if (typeof name === 'string') {
-      this.storage.removeItem(name)
+  public remove(key: string) {
+    if (typeof key === 'string') {
+      this.storage.removeItem(key)
     } else {
       logger.logErr('Your input is illegal，please check removeStorage')
     }
     return this.storage
   }
 
-  public has(name: string): boolean {
-    if (typeof name === 'string') {
-      return this.storage.getItem(name) !== null
+  public has(key: string): boolean {
+    if (typeof key === 'string') {
+      return this.storage.getItem(key) !== null
     } else {
       logger.logErr('Your input is illegal，please check removeStorage')
       return false
@@ -64,9 +74,9 @@ export class ProStorage {
   public local: CommonStorage | null = null;
   public session: CommonStorage | null = null;
 
-  public constructor() {
-    this.local = new CommonStorage('local')
-    this.session = new CommonStorage('session')
+  public constructor(options?: { prefix?: string }) {
+    this.local = new CommonStorage('local', options || {})
+    this.session = new CommonStorage('session', options || {})
   }
 }
 
