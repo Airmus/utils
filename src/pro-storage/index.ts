@@ -9,6 +9,7 @@ export type StorageMethod = {
   remove: (key: string | string[]) => CommonStorage
   has: (key: string) => boolean
   clear: () => CommonStorage
+  getPrefix: () => string
 }
 // 拼接前缀的装饰器工厂
 function prefix(target: CommonStorage, _name: string, descriptor: PropertyDescriptor) {
@@ -50,7 +51,7 @@ class CommonStorage {
       timestamp: isType(expires, 'number', 'string') ?
         new Date().getTime() + (parseInt(expires!.toString()) || 0)
         : null,
-      data: JSON.stringify(value)
+      data: value
     }))
     return this.storage
   }
@@ -60,7 +61,7 @@ class CommonStorage {
     if (typeof key === 'string') {
       this.storage.removeItem(key)
     } else {
-      logger.logErr('Your input is illegal，please check removeStorage')
+      logger.logErr('Your input is illegal，please check [remove] method')
     }
     return this.storage
   }
@@ -70,7 +71,7 @@ class CommonStorage {
     if (typeof key === 'string') {
       return this.storage.getItem(key) !== null
     } else {
-      logger.logErr('Your input is illegal，please check removeStorage')
+      logger.logErr('Your input is illegal，please check [has] method')
       return false
     }
   }
