@@ -34,6 +34,14 @@ describe('parseUrl', () => {
     expect(parseUrl(Promise.resolve('1') as any)).toEqual({})
   })
 
+  it('encode url params', () => {
+    expect(parseUrl('https://www.baidu.com/?eurl=https%3A%2F%2Fwww.baidu.com%2F&url=https://www.baidu.com/')).toEqual({
+      eurl: 'https://www.baidu.com/',
+      url: 'https://www.baidu.com/',
+    })
+
+  })
+
 })
 
 

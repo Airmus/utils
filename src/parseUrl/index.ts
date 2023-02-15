@@ -13,10 +13,11 @@ export const parseUrl = (url: string): Record<string, string | string[]> => {
   const result: Record<string, string | string[]> = {}
 
   for (const [key, value] of urlSearchParams) {
+    const decodedValue = decodeURIComponent(value)
     if (result[key] === undefined) {
-      result[key] = value
+      result[key] = decodedValue
     } else {
-      result[key] = [...result[key] as string, value]
+      result[key] = [...result[key] as string, decodedValue]
     }
   }
 
