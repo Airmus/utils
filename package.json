@@ -27,7 +27,8 @@
   },
   "author": "Fog3211",
   "module": "dist/mylib.esm.js",
-  "size-limit": [{
+  "size-limit": [
+    {
       "path": "dist/utils.cjs.production.min.js",
       "limit": "10 KB"
     },
@@ -38,6 +39,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^5.0.3",
+    "@types/jest": "^29.4.0",
     "@umijs/fabric": "^2.7.0",
     "husky": "^7.0.2",
     "size-limit": "^5.0.3",
