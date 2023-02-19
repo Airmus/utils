@@ -1,4 +1,4 @@
-# 使用文档
+# @airmus/utils
 
 `@airmus/utils` 是一个集合了多个常用方法的工具库。
 
@@ -199,4 +199,28 @@ deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b', 'c']) // s2
 
 // 默认值
 deepGet([{ a: [{ b: 1 }] }], '0.a.0.b.c', 'error') // error
+```
+
+### RGBToHex
+
+将 RGB 颜色值转换为十六进制颜色值。
+
+```typescript
+
+console.log(RGBToHex('rgb(255, 255, 255)')); // "#FFFFFF"
+
+console.log(RGBToHex('rgba(0, 255, 0, 0.5)')); // "#00FF0080"
+
+```
+
+### hexToRGB
+
+将十六进制颜色值转换为 RGB 颜色值。
+
+```typescript
+
+console.log(hexToRGB('#FF0000')); // "rgb(255, 0, 0)"
+
+console.log(hexToRGB('#FF000080')); // "rgb(255, 0, 0, 0.5)"
+
 ```
