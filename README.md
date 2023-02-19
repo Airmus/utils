@@ -1,16 +1,16 @@
-# 使用文档
+# @airmus/utils
 
-`@airmus/utils` 是一个集合了多个常用方法的工具库。
+`@airmus/utils` is a utility library that includes multiple commonly used methods.
 
-## 安装
+## Installation
 
 ```bash
 npm install @airmus/utils 
-# 或
+# or
 yarn add @airmus/utils
 ```
 
-## 使用
+## Usage
 
 ```tsx
 import { scrollToView } from '@airmus/utils'
@@ -41,10 +41,10 @@ const App = () => {
 
 ### numberParse
 
-解析字符串中的数字
+Parse numbers in a string.
 
 ``` tsx
-/** 字符串整数、字符串浮点数、数字整数、数字浮点数 */
+/** String integer, String float, Numeric integer, Numeric float */
 type IFormat =
   | 'STRING_INT'
   | 'STRING_FLOAT'
@@ -52,26 +52,26 @@ type IFormat =
   | 'NUMBER_FLOAT'
 
 type Options<T> = {
-  /** 保留小数点精度 */
+  /** Number of decimal places */
   digits?: number
-  /** 数据返回的形式 */
+  /** Return value format */
   format?: T | IFormat
-  /** 自定义匹配规则 */
+  /** Custom regular expression */
   customRegexp?: RegExp
 }
 
-/** 提取数字 */
+/** Extract numbers */
 
-// 格式化成字符串整数，并保留两位小数 '123.00'
+// Format as a string integer and keep two decimal places: '123.00'
 numberParse('asdfg123.44*66..', { digits: 2, format: 'STRING_INT' })
 
-// 格式化成数字浮点数 '123.44'
+// Format as a numeric float: '123.44'
 numberParse('asdfg123.44*66..', { format: 'NUMBER_FLOAT' })
 
 numberParse('-2.ppd-123.44*66..', { format: 'NUMBER_INT' })
 // -2
 
-/** 多个匹配 */
+/** Multiple matches */
 
 numberMatch('-2.ppd-123.44*66..', { format: 'NUMBER_INT' })
 // [-2, -123, 44, 66]
@@ -83,74 +83,75 @@ numberMatch('-1.2.ppd-123.44*66..', { format: 'STRING_FLOAT' })
 // ["-1.2", "-123.44", "66"]
 
 numberMatch('-1.2.ppd-123.44*66..', { format: 'STRING_FLOAT', customRegexp: /[1-5]+/g })
-// 自定义正则匹配 ["-1.2", "-123.44", "66"]
+// Custom regular expression matching: ["-1.2", "-123.44", "66"]
+
 
 ```
 
 ### scrollToView
 
-dom元素滚动到可视区域
+Scroll a DOM element into view.
 
 ``` tsx
 type ScrollToOptions = {
-  /** 与左侧视口的距离 */
+  /** Distance from the left side of the viewport */
   left?: number
-  /** 与顶部视口的距离 */
+  /** Distance from the top of the viewport */
   top?: number
-  /** 立即滚动 or 平滑滚动 */
+  /** Scroll type */
   behavior: "auto" | "smooth"
 }
 type Options = ScrollToOptions & {
-  /** 横向滚动位置偏移量，正数偏右，负数偏左 */
+  /** Horizontal scrolling position offset, positive values offset to the right, negative values offset to the left */
   offsetX?: number
-  /** 纵向滚动位置偏移量，正数偏上，负数偏下 */
+  /** Vertical scrolling position offset, positive values offset upwards, negative values offset downwards */
   offsetY?: number
-  /** css选择器，用于指定滚动的dom */
+  /** CSS selector for scrolling a DOM element */
   selector?: string
 }
 
-// id为app的dom滚动到视口区域，并向下偏移100像素
+// Scroll the DOM element with id='app' into view and offset it downwards by 100 pixels.
 scrollToView({
   selector: '#app'
   offsetY: 100
 })
 
-// 不指定selector，直接给出绝对位置
+// Specify absolute position without a selector.
 scrollToView({
   top: 200,
   left: 400
 })
 
-// 不指定selector，也没有传入具体位置，则会根据路由里面的锚点进行定位（如果有）
-// https://test.example.com/demo#abcd
-scrollToView() // 会锚点定位到’#abcd‘
+// No selector is specified, and no specific location is passed, so the anchor in the route will be used for positioning (if
+
 ```
 
 ### toFixed
 
-控制小数精度（支持四舍五入可控）
+Control decimal precision (supports customizable rounding)
 
 ``` tsx
 type Options = {
-  /** 是否四舍五入 */
+  /** Whether to round */
   rounding?: boolean
-  /** 保留多少位小数  */
+  /** How many decimal places to keep */
   digits?: number
 }
 
-// 保留两位小数 '123.00'
+// Keep 2 decimal places '123.00'
 toFixed('123', { digits: 2 })
 
 //  '-123.124'
 toFixed(-3.124)
 
-// 四舍五入 '-123.125'
+// Round up '-123.125'
 toFixed(-3.1247, { rounding: true, digits: 3 })
+
 ```
 
 ### isType
 
-数据类型检测
+Type checking for data
 
 ``` tsx
 type IType =
@@ -169,34 +170,62 @@ type IType =
   | 'null'
   | 'object'
 
-// 第一个参数为目标值，后面可选多个可能的类型
+// The first parameter is the target value, followed by optional possible types
 isType(value [, type1, ..., typen])
 
 isType('value','string') // true
 
 isType(NaN,'object') // false
 
-// 多个可选类型 (任一满足即可)
+// Multiple optional types (any one is satisfied)
 isType(/^a(\w+)z$/),'object','string','date') // false
 isType(/^a(\w+)z$/),'array','regexp') // true
+
 ```
 
 ### deepGet
 
-根据路径获取嵌套数据
+Get nested data based on the path
 
 ``` tsx
 type IPath = string | (number | string)[]
 
 deepGet(target: object, path: IPath, defaultValue?: any)
 
-// 字符串路径
+// String path
 deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, 'a.b.c')  // s2
 
-// 数组路径
+// Array path
 deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b.c']) // s1
 deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b', 'c']) // s2
 
-// 默认值
+// Default value
 deepGet([{ a: [{ b: 1 }] }], '0.a.0.b.c', 'error') // error
+
+```
+
+### RGBToHex
+
+Convert RGB color value to hexadecimal color value
+
+```typescript
+
+
+console.log(RGBToHex('rgb(255, 255, 255)')); // "#FFFFFF"
+
+console.log(RGBToHex('rgba(0, 255, 0, 0.5)')); // "#00FF0080"
+
+```
+
+### hexToRGB
+
+Convert hexadecimal color value to RGB color value
+
+```typescript
+
+console.log(hexToRGB('#FF0000')); // "rgb(255, 0, 0)"
+
+console.log(hexToRGB('#FF000080')); // "rgb(255, 0, 0, 0.5)"
+
+
 ```
