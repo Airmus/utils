@@ -1,5 +1,5 @@
 import isType from '../isType'
-import { logger } from '../shared'
+import { logger } from '../logger'
 
 type IMode = 'local' | 'session'
 

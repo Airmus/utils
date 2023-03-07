@@ -5,25 +5,25 @@ import { parseUrl } from '..'
 describe('parseUrl', () => {
 
   it('normal', () => {
-    expect(parseUrl('a=1&b=2&c=3')).toEqual({
-      a: '1',
-      b: '2',
-      c: '3'
+    expect(parseUrl('a=1&b=f2&c=l3')).toEqual({
+      a: 1,
+      b: 'f2',
+      c: 'l3'
     })
   })
 
   it('with ？', () => {
-    expect(parseUrl('https://fog3211.com?a=1&b=2&c=3')).toEqual({
-      a: '1',
-      b: '2',
-      c: '3'
+    expect(parseUrl('https://fog3211.com?a=-1&b=jjjj&c=3x')).toEqual({
+      a: -1,
+      b: 'jjjj',
+      c: '3x'
     })
   })
 
   it('with identical params', () => {
     expect(parseUrl('https://fog3211.com?a=1&a=2&A=3')).toEqual({
-      a: ['1', '2'],
-      A: '3'
+      a: [1, 2],
+      A: 3
     })
   })
 
