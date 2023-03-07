@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@airmus/logger': ^0.2.0
   '@size-limit/preset-small-lib': ^7.0.3
   '@types/jest': ^29.4.0
   '@types/node': ^16.11.11
@@ -14,7 +13,6 @@ specifiers:
   typescript: ^4.4.4
 
 dependencies:
-  '@airmus/logger': r2.cnpmjs.org/@airmus/logger/0.2.2
   np: 7.6.3
 
 devDependencies:
@@ -5227,12 +5225,6 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: false
-
-  r2.cnpmjs.org/@airmus/logger/0.2.2:
-    resolution: {integrity: sha512-g9lVJ/10F/u2KBe1uQ4dz1P6zN3k60ET2sEb8mHGdwEgOzF4oDYbQngl1HJSK+bHqTR870TKQv0l62gHUeygvQ==, registry: https://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@airmus/logger/-/logger-0.2.2.tgz}
-    name: '@airmus/logger'
-    version: 0.2.2
     dev: false
 
   r2.cnpmjs.org/@babel/code-frame/7.12.11:

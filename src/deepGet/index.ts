@@ -5,7 +5,7 @@
  */
 
 import { isType } from '..'
-import { logger } from '../shared'
+import { logger } from '../logger'
 
 export type IPath = string | (number | string)[]
 
