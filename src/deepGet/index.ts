@@ -4,7 +4,7 @@
  * @Description: 通过路径取出 对象/数组 的value
  */
 
-import { isType } from '..'
+import { isType } from '../isType'
 import { logger } from '../logger'
 
 export type IPath = string | (number | string)[]

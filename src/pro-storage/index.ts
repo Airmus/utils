@@ -1,4 +1,4 @@
-import isType from '../isType'
+import { isType } from '../isType'
 import { logger } from '../logger'
 
 type IMode = 'local' | 'session'

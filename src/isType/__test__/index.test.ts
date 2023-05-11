@@ -1,4 +1,4 @@
-import isType from '..'
+import { isType } from '..'
 
 /** isType */
 

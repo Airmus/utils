@@ -33,12 +33,10 @@ const getType = (value: any): IType => {
   }
 }
 
-const isType = (value: any, ...rest: IType[]) => {
+export const isType = (value: any, ...rest: IType[]) => {
   if (rest.length === 0) {
     return value === undefined
   } else {
     return rest.some(type => getType(value) === type)
   }
 }
-
-export default isType
