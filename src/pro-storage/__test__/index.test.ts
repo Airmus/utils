@@ -1,5 +1,5 @@
-import { ProStorage } from '../index'
 import { expect, test } from 'vitest'
+import { ProStorage } from '../index'
 
 /** ProStorage */
 

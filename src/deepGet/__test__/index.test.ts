@@ -1,10 +1,9 @@
-import deepGet from '..'
 import { expect, test } from 'vitest'
+import deepGet from '..'
 
 /** deepGet */
 
 test('deepGet', () => {
-
   test('normal input', () => {
     expect(deepGet({ a: 1 }, 'a')).toBe(1)
   })
@@ -34,18 +33,16 @@ test('deepGet', () => {
   })
 
   test('string path contain .', () => {
-    expect(deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, 'a.b.c')).toBe('s2')
+    expect(deepGet({ a: { 'b.c': 's1', 'b': { c: 's2' } } }, 'a.b.c')).toBe('s2')
   })
 
   test('array path to replace .', () => {
-    expect(deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', 'b.c'])).toBe('s1')
+    expect(deepGet({ a: { 'b.c': 's1', 'b': { c: 's2' } } }, ['a', 'b.c'])).toBe('s1')
   })
 
   test('array path contain empty key', () => {
     expect(
-      deepGet({ a: { 'b.c': 's1', b: { c: 's2' } } }, ['a', null, 'aaa'] as any, 's3')
+      deepGet({ a: { 'b.c': 's1', 'b': { c: 's2' } } }, ['a', null, 'aaa'] as any, 's3'),
     ).toBe('s3')
   })
 })
-
-

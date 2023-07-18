@@ -1,10 +1,9 @@
-import { isType } from '..'
 import { expect, test } from 'vitest'
+import { isType } from '..'
 
 /** isType */
 
 test('isType', () => {
-
   test('without second input', () => {
     expect(isType(123)).toBe(false)
   })
@@ -68,7 +67,4 @@ test('isType', () => {
   test('multiple types input', () => {
     expect(isType(new Date(), 'string', 'date', 'null', 'object')).toBe(true)
   })
-
 })
-
-

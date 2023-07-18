@@ -14,7 +14,7 @@ export type Options = ScrollToOptions & {
 }
 
 /** 滚动至可视区域 */
-const scrollToView = (options: Options) => {
+function scrollToView(options: Options) {
   const { top, left, offsetY = 0, offsetX = 0, selector, behavior } = options ?? {}
   let elmSelector = selector
   if (!elmSelector) {
@@ -33,7 +33,8 @@ const scrollToView = (options: Options) => {
         left: left ?? dom.getBoundingClientRect().left + offsetX,
       })
     }
-  } else {
+  }
+  else {
     throw new Error('Did you forget params selector?')
   }
 }

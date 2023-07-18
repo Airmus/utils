@@ -4,8 +4,9 @@
  * @Description: 依次执行数组中的函数
  */
 
-const pipe = <T>(x: unknown, ...fns: Function[]): T => {
-  return fns.reduce((y: unknown, fn) => fn(y), x);
+// eslint-disable-next-line @typescript-eslint/ban-types
+function pipe<T>(x: unknown, ...fns: Function[]): T {
+  return fns.reduce((y: unknown, fn) => fn(y), x)
 }
 
 export default pipe

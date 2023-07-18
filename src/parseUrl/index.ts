@@ -8,10 +8,12 @@ type ResultValue = string | number | string[] | number[]
 
 type Result = Record<string, ResultValue>
 
-export const parseUrl = (url: string = typeof window === 'undefined' ? '' : window.location.search): Result => {
-  if (typeof url !== 'string' || !url) return {}
+export function parseUrl(url: string = typeof window === 'undefined' ? '' : window.location.search): Result {
+  if (typeof url !== 'string' || !url) {
+    return {}
+  }
 
-  const searchPath = url.indexOf('?') === -1 ? url : url.match(/.+\?(.+)/)![1]
+  const searchPath = !url.includes('?') ? url : url.match(/.+\?(.+)/)![1]
 
   const urlSearchParams = new URLSearchParams(searchPath).entries()
 
@@ -20,12 +22,14 @@ export const parseUrl = (url: string = typeof window === 'undefined' ? '' : wind
   for (const [key, value] of urlSearchParams) {
     let decodedValue: ResultValue = decodeURIComponent(value)
     if (/^-?\d+(\.\d+)?$/.test(decodedValue as string)) {
-      decodedValue = parseFloat(decodedValue as string)
+      decodedValue = Number.parseFloat(decodedValue as string)
     }
     if (result[key] === undefined) {
       result[key] = decodedValue
-    } else {
-      // @ts-ignore
+    }
+    else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       result[key] = [...(result[key] as ResultValue[]), decodedValue]
     }
   }

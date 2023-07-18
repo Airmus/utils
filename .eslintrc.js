@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-  extends: [require.resolve('@umijs/fabric/dist/eslint')],
+  extends: ['@airmus'],
 
   rules: {
     'spaced-comment': 0,

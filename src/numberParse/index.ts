@@ -12,7 +12,7 @@ export type IFormat =
   | 'NUMBER_INT'
   | 'NUMBER_FLOAT'
 
-export type Options<T> = {
+export interface Options<T> {
   /** 保留小数点精度 */
   digits?: number
   /** 数据返回的形式 */
@@ -32,20 +32,22 @@ const FLOAT_REGEXP = /-?\d+(\.\d+)?/g
 type ParserResult<T> = T extends ('NUMBER_FLOAT' | 'NUMBER_INT') ? number : string
 
 /** 解析字符串中的数字 */
-export const numberParse = <T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T> | undefined => {
+export function numberParse<T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T> | undefined {
   const { digits, format = 'STRING_FLOAT', customRegexp } = options ?? {}
   const isFloat = format === 'NUMBER_FLOAT' || format === 'STRING_FLOAT'
   const isNumber = format === 'NUMBER_FLOAT' || format === 'NUMBER_INT'
   let matchRegexp: RegExp = SINGLE_INTEGER_REGEXP
   if (customRegexp) {
     matchRegexp = customRegexp
-  } else if (isFloat) {
+  }
+  else if (isFloat) {
     matchRegexp = SINGLE_FLOAT_REGEXP
   }
   const match: string | undefined = (str.match(matchRegexp) ?? [])[0]
   if (match === undefined) {
     return undefined
-  } else {
+  }
+  else {
     return (
       isNumber ? Number(toFixed(match, { digits })) : toFixed(match, { digits })
     ) as ParserResult<T>
@@ -53,14 +55,15 @@ export const numberParse = <T = 'STRING_FLOAT'>(str: string, options?: Options<T
 }
 
 /** 匹配字符串中的数字 */
-export const numberMatch = <T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T>[] => {
+export function numberMatch<T = 'STRING_FLOAT'>(str: string, options?: Options<T>): ParserResult<T>[] {
   const { digits, format = 'STRING_FLOAT', customRegexp } = options ?? {}
   const isFloat = format === 'NUMBER_FLOAT' || format === 'STRING_FLOAT'
   const isNumber = format === 'NUMBER_FLOAT' || format === 'NUMBER_INT'
   let matchRegexp: RegExp = INTEGER_REGEXP
   if (customRegexp) {
     matchRegexp = customRegexp
-  } else if (isFloat) {
+  }
+  else if (isFloat) {
     matchRegexp = FLOAT_REGEXP
   }
   const matchs: string[] = str.match(matchRegexp) ?? []

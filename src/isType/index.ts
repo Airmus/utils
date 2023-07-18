@@ -19,7 +19,7 @@ export type IType =
   | 'null'
   | 'object'
 
-const getType = (value: any): IType => {
+function getType(value: any): IType {
   if (value instanceof Element) {
     return 'dom'
   }
@@ -28,15 +28,17 @@ const getType = (value: any): IType => {
   const maybeType = tempType.slice(8, tempType.length - 1).toLowerCase()
   if (['number', 'string', 'boolean', 'undefined', 'symbol', 'bigint', 'array', 'function', 'regexp', 'promise', 'date', 'null'].includes(maybeType)) {
     return maybeType as IType
-  } else {
+  }
+  else {
     return 'object'
   }
 }
 
-export const isType = (value: any, ...rest: IType[]) => {
+export function isType(value: any, ...rest: IType[]) {
   if (rest.length === 0) {
     return value === undefined
-  } else {
+  }
+  else {
     return rest.some(type => getType(value) === type)
   }
 }

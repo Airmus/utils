@@ -1,15 +1,14 @@
-import { parseUrl } from '..'
 import { expect, test } from 'vitest'
+import { parseUrl } from '..'
 
 /** parseUrl */
 
 test('parseUrl', () => {
-
   test('normal', () => {
     expect(parseUrl('a=1&b=f2&c=l3')).toEqual({
       a: 1,
       b: 'f2',
-      c: 'l3'
+      c: 'l3',
     })
   })
 
@@ -17,14 +16,14 @@ test('parseUrl', () => {
     expect(parseUrl('https://fog3211.com?a=-1&b=jjjj&c=3x')).toEqual({
       a: -1,
       b: 'jjjj',
-      c: '3x'
+      c: '3x',
     })
   })
 
   test('with identical params', () => {
     expect(parseUrl('https://fog3211.com?a=1&a=2&A=3')).toEqual({
       a: [1, 2],
-      A: 3
+      A: 3,
     })
   })
 
@@ -40,9 +39,5 @@ test('parseUrl', () => {
       eurl: 'https://www.baidu.com/',
       url: 'https://www.baidu.com/',
     })
-
   })
-
 })
-
-

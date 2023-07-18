@@ -1,9 +1,10 @@
+/* eslint-disable prefer-rest-params */
 import { isType } from '../isType'
 import { logger } from '../logger'
 
 type IMode = 'local' | 'session'
 
-export type StorageMethod = {
+export interface StorageMethod {
   get: <T>(key: string) => T | undefined
   set: <T>(key: string, value: T, expires?: string | number) => CommonStorage
   remove: (key: string | string[]) => CommonStorage
@@ -17,16 +18,18 @@ function prefix(target: CommonStorage, _name: string, descriptor: PropertyDescri
   descriptor.value = function () {
     const key = arguments[0]
     const prefix = target.getPrefix()
-    if (!key) throw new Error('')
+    if (!key) {
+      throw new Error('key is not allowed to be empty')
+    }
     return oldValue.apply(this, {
       ...arguments,
-      '0': prefix ? `${prefix}-${key}` : key // 拼接完整的key
+      0: prefix ? `${prefix}-${key}` : key, // 拼接完整的key
     })
-  };
-  return descriptor;
+  }
+  return descriptor
 }
 class CommonStorage {
-  private prefix: string = ''
+  private prefix = ''
   private storage: Storage = window.localStorage
 
   public constructor(mode: IMode, options: { prefix?: string }) {
@@ -39,7 +42,8 @@ class CommonStorage {
     const value = JSON.parse(this.storage.getItem(key) || '{}')
     if (value.timestamp && value.timestamp <= new Date().getTime()) {
       return value.data as T
-    } else {
+    }
+    else {
       this.remove(key)
       return null
     }
@@ -48,10 +52,10 @@ class CommonStorage {
   @prefix
   public set<T>(key: string, value: T, expires?: string | number) {
     this.storage.setItem(key, JSON.stringify({
-      timestamp: isType(expires, 'number', 'string') ?
-        new Date().getTime() + (parseInt(expires!.toString()) || 0)
+      timestamp: isType(expires, 'number', 'string')
+        ? new Date().getTime() + (Number.parseInt(expires!.toString()) || 0)
         : null,
-      data: value
+      data: value,
     }))
     return this.storage
   }
@@ -60,7 +64,8 @@ class CommonStorage {
   public remove(key: string) {
     if (typeof key === 'string') {
       this.storage.removeItem(key)
-    } else {
+    }
+    else {
       logger.logErr('Your input is illegal，please check [remove] method')
     }
     return this.storage
@@ -70,7 +75,8 @@ class CommonStorage {
   public has(key: string): boolean {
     if (typeof key === 'string') {
       return this.storage.getItem(key) !== null
-    } else {
+    }
+    else {
       logger.logErr('Your input is illegal，please check [has] method')
       return false
     }
@@ -87,12 +93,12 @@ class CommonStorage {
 }
 
 export class ProStorage {
-  public local: CommonStorage = new CommonStorage('local', {});
-  public session: CommonStorage = new CommonStorage('session', {});
+  public local: CommonStorage = new CommonStorage('local', {})
+  public session: CommonStorage = new CommonStorage('session', {})
 
   public constructor(options?: { prefix?: string }) {
     if (typeof window === 'undefined') {
-      throw new Error('ProStorage can only be used in the browser')
+      throw new TypeError('ProStorage can only be used in the browser')
     }
     this.local = new CommonStorage('local', options || {})
     this.session = new CommonStorage('session', options || {})

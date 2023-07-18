@@ -1,5 +1,5 @@
-import uniqueObjectArray from '..';
 import { expect, test } from 'vitest'
+import uniqueObjectArray from '..'
 
 /** uniqueObjectArray */
 
@@ -14,13 +14,13 @@ test('uniqueObjectArray', () => {
 
   test('find value in object', () => {
     expect(uniqueObjectArray([{ a: 1, b: 2 }, { a: 1, b: 3 }], {
-      key: 'a'
+      key: 'a',
     })).toStrictEqual([{ a: 1, b: 3 }])
   })
 
   test('not find value in object', () => {
     expect(uniqueObjectArray([{ a: 1, b: 2 }, { a: 1, b: 3 }], {
-      key: 'ss'
+      key: 'ss',
     })).toStrictEqual([{ a: 1, b: 2 }, { a: 1, b: 3 }])
   })
 

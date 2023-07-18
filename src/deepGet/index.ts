@@ -9,14 +9,16 @@ import { logger } from '../logger'
 
 export type IPath = string | (number | string)[]
 
-const deepGet = (target: object, path: IPath, defaultValue?: any) => {
+function deepGet(target: object, path: IPath, defaultValue?: any) {
   let pathArr: (string | number)[] = []
   let value: any
   if (typeof path === 'string') {
     pathArr = path.split('.')
-  } else if (Array.isArray(path)) {
+  }
+  else if (Array.isArray(path)) {
     pathArr = Array.from(path)
-  } else {
+  }
+  else {
     logger.logWarn('your input is illegal, return defaultValue')
     return defaultValue
   }

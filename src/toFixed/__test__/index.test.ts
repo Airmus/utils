@@ -1,12 +1,12 @@
-import toFixed from '..';
 import { expect, test } from 'vitest'
+import toFixed from '..'
 
 /** toFixed */
 
 test('toFixed', () => {
   test('with digits', () => {
     expect(toFixed('123', {
-      digits: 7
+      digits: 7,
     })).toBe('123.0000000')
   })
 

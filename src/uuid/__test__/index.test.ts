@@ -1,10 +1,12 @@
-import uuid from '../index'
 import { expect, test } from 'vitest'
+import uuid from '../index'
 
 /** uuid */
 
 test('uuid', () => {
-  globalThis.URL.createObjectURL = function () { return '3c29bf9c-5808-4d8d-a6d2-c6f5b3990299' }
+  globalThis.URL.createObjectURL = function () {
+    return '3c29bf9c-5808-4d8d-a6d2-c6f5b3990299'
+  }
 
   test('normal', () => {
     expect(uuid()).toHaveLength(36)

@@ -1,4 +1,4 @@
-
+/* eslint-disable no-extend-native */
 declare global {
   interface Number {
     add: (num: number) => number
@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export const linkCalculator = (num: number) => {
+export function linkCalculator(num: number) {
   let res = num
 
   Number.prototype.add = function (num: number) {
@@ -29,4 +29,3 @@ export const linkCalculator = (num: number) => {
   }
   return res
 }
-

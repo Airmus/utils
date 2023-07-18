@@ -4,26 +4,28 @@
  * @Description: 检测DOM曝光
  */
 
-type Options = {
+interface Options {
   /** 曝光阈值，达到百分之多少时才触发 */
   threshold?: number
   /** 最多执行多少次callback后开始忽略 */
   maxCount?: number | 'infinite'
 }
 
-const DomExposure = (selector: string, callback: () => void, options?: Options) => {
-  const { threshold = 1,
+function DomExposure(selector: string, callback: () => void, options?: Options) {
+  const {
+    threshold = 1,
     //  maxCount = 'infinite'
   } = options || {}
   const targetDoms = document.querySelectorAll(selector) || []
   const domLists = Array.from(targetDoms)
   if (
-    !('IntersectionObserver' in window) ||
-    !('IntersectionObserverEntry' in window) ||
-    !('intersectionRatio' in window.IntersectionObserverEntry.prototype)
+    !('IntersectionObserver' in window)
+    || !('IntersectionObserverEntry' in window)
+    || !('intersectionRatio' in window.IntersectionObserverEntry.prototype)
   ) {
     // load polyfill now
-  } else {
+  }
+  else {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((item) => {
@@ -39,7 +41,7 @@ const DomExposure = (selector: string, callback: () => void, options?: Options) 
       },
     )
     // observe遍历监听所有box节点
-    domLists.forEach((box) => io.observe(box))
+    domLists.forEach(box => io.observe(box))
   }
 }
 

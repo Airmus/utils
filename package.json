@@ -1,6 +1,6 @@
 {
   "name": "@airmus/utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "./dist/lib/index.js",
   "module": "./dist/es/index.js",
@@ -14,6 +14,7 @@
     "node": ">=14"
   },
   "scripts": {
+    "lint": "eslint --ext .ts,.tsx src",
     "test": "vitest",
     "prepare": "husky install",
     "clean": "rimraf dist",
@@ -23,6 +24,7 @@
   },
   "author": "Fog3211",
   "devDependencies": {
+    "@airmus/eslint-config": "^0.40.1",
     "@types/node": "^20.4.2",
     "husky": "^8.0.3",
     "jsdom": "^22.1.0",
