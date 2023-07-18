@@ -1,9 +1,10 @@
 import pipe from '..';
+import { expect, test } from 'vitest'
 
 /** pipe */
 
-describe('pipe', () => {
-  it('normal input', () => {
+test('pipe', () => {
+  test('normal input', () => {
     const fun1 = (x: number) => x + 2
     const fun2 = (x: number) => x * 5
     const fun3 = (x: number) => x.toString() + '...'

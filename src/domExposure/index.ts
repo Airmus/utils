@@ -12,7 +12,9 @@ type Options = {
 }
 
 const DomExposure = (selector: string, callback: () => void, options?: Options) => {
-  const { threshold = 1, maxCount = 'infinite' } = options || {}
+  const { threshold = 1,
+    //  maxCount = 'infinite'
+  } = options || {}
   const targetDoms = document.querySelectorAll(selector) || []
   const domLists = Array.from(targetDoms)
   if (

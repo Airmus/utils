@@ -1,58 +1,36 @@
 {
   "name": "@airmus/utils",
-  "version": "0.11.2",
+  "version": "1.0.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "module": "dist/utils.esm.js",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "typings": "./dist/es/index.d.ts",
   "files": [
     "dist",
-    "package.json",
-    "yarn.lock",
     "README.md",
     "README.zh-CN.md"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --coverage --watch",
-    "lint": "tsdx lint",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
+    "test": "vitest",
+    "prepare": "husky install",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean && npm run test",
+    "build": "tsc --outDir ./dist/es && tsc -m commonjs --outDir ./dist/lib",
     "release": "npm run build && np --no-yarn --no-tests --no-cleanup --branch main"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "author": "Fog3211",
-  "size-limit": [
-    {
-      "path": "dist/utils.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/utils.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.3",
-    "@types/jest": "^29.4.0",
-    "@types/node": "^16.11.11",
-    "@umijs/fabric": "^2.8.1",
-    "husky": "^7.0.4",
-    "size-limit": "^7.0.3",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "np": "^7.6.3"
+    "@types/node": "^20.4.2",
+    "husky": "^8.0.3",
+    "jsdom": "^22.1.0",
+    "np": "^8.0.4",
+    "rimraf": "^5.0.1",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0"
   },
   "bugs": {
     "url": "https://github.com/airmus/utils/issues"
@@ -60,5 +38,6 @@
   "homepage": "https://github.com/airmus/utils#readme",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

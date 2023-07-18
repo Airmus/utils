@@ -1,7 +1,8 @@
 import { BidirectionalMap } from '..';
+import { expect, test } from 'vitest'
 
-describe('BidirectionalMap', () => {
-  it('should set and get values correctly', () => {
+test('BidirectionalMap', () => {
+  test('should set and get values correctly', () => {
     const map = new BidirectionalMap<string, number>({});
     map.set('one', 1);
     map.set('two', 2);
@@ -15,7 +16,7 @@ describe('BidirectionalMap', () => {
     expect(map.getKey(3)).toBe('three');
   });
 
-  it('should delete values correctly', () => {
+  test('should delete values correctly', () => {
     const map = new BidirectionalMap<string, number>({});
     map.set('one', 1);
     map.set('two', 2);
@@ -30,7 +31,7 @@ describe('BidirectionalMap', () => {
     expect(map.get('three')).toBe(undefined);
   });
 
-  it('should clear values correctly', () => {
+  test('should clear values correctly', () => {
     const map = new BidirectionalMap<string, number>(null as any);
     map.set('one', 1);
     map.set('two', 2);

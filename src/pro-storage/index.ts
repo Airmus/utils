@@ -27,7 +27,7 @@ function prefix(target: CommonStorage, _name: string, descriptor: PropertyDescri
 }
 class CommonStorage {
   private prefix: string = ''
-  private storage: Storage = localStorage
+  private storage: Storage = window.localStorage
 
   public constructor(mode: IMode, options: { prefix?: string }) {
     this.storage = window[`${mode}Storage` as keyof Window] // 处理 semantic error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
@@ -91,6 +91,9 @@ export class ProStorage {
   public session: CommonStorage = new CommonStorage('session', {});
 
   public constructor(options?: { prefix?: string }) {
+    if (typeof window === 'undefined') {
+      throw new Error('ProStorage can only be used in the browser')
+    }
     this.local = new CommonStorage('local', options || {})
     this.session = new CommonStorage('session', options || {})
   }
